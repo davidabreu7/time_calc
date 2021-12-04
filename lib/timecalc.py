@@ -30,7 +30,7 @@ def calc_time(args):
         if h1 > h2:
             h2, h1 = h1, h2
 
-        delta = timedelta(hours=h2.hour, minutes=h2.minute, seconds=h2.second)
+        delta = timedelta(hours=h1.hour, minutes=h1.minute, seconds=h1.second)
         print(delta)
         return args[0] - delta
     elif len(args) == 1:
@@ -54,6 +54,7 @@ def calc_date(args):
         delta = relativedelta(years=h1.year, months=h1.month, days=h1.day)
         return h2 - delta
     elif len(args) == 1:
+        h1=args[0]
         today = datetime.today()
         delta = relativedelta(years=h1.year, months=h1.month, days=h1.day)
         return today - delta
