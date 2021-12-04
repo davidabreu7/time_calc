@@ -7,7 +7,7 @@ def parse_time(args):
     time_list = []
     try:
         time_list = [datetime.strptime(arg, "%H:%M:%S") for arg in args]
-    except ValueError:
+    except TypeError:
         print("hora fora do formato hh:mm:ss")
     return time_list
 
@@ -16,7 +16,7 @@ def parse_date(args):
     date_list = []
     try:
         date_list = [datetime.strptime(arg, "%d/%m/%Y") for arg in args]
-    except ValueError:
+    except TypeError:
         print("data fora do formato dd/mm/yyyy")
     return date_list
 
