@@ -10,7 +10,7 @@ def parse_time(args: list[str]) -> list[datetime]:
     :param args: list of strings from CLI
     :return: a list of datetime objects
     """
-    time_list = []
+
     try:
         time_list = [datetime.strptime(arg, "%H:%M:%S") for arg in args]
     except TypeError:
@@ -29,7 +29,7 @@ def parse_date(args: list[str]) -> list:
     :param args: strings from CLI
     :return: a list of datetime objects
     """
-    date_list = []
+
     try:
         date_list = [datetime.strptime(arg, "%d/%m/%Y") for arg in args]
     except ValueError:
@@ -54,8 +54,8 @@ def calc_time(args: list[datetime]) -> str:
             h2, h1 = h1, h2
 
         delta = timedelta(hours=h2.hour, minutes=h2.minute, seconds=h2.second)
-
-        return h1 - delta
+        calculation_time = h1 - delta
+        return calculation_time.strftime("%H:%M:%S")
 
     elif len(args) == 1:
         h1 = args[0]
