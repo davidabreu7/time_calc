@@ -27,15 +27,16 @@ def calc_time(args):
 
     if len(args) > 1:
         h1, h2 = args[0], args[1]
-        if h1 > h2:
+        if h1 < h2:
             h2, h1 = h1, h2
 
-        delta = timedelta(hours=h1.hour, minutes=h1.minute, seconds=h1.second)
-        print(delta)
-        return args[0] - delta
+        delta = timedelta(hours=h2.hour, minutes=h2.minute, seconds=h2.second)
+        return h1 - delta
     elif len(args) == 1:
         h1 = args[0]
         now = datetime.now()
+        if h1 < now:
+            now, h1 = h1, now
 
         delta = timedelta(hours=h1.hour, minutes=h1.minute, seconds=h1.second)
         return now - delta
