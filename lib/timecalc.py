@@ -75,12 +75,12 @@ def calc_date(args: list[datetime]) -> str:
     :param args: list of datetime objects from parse_date()
     :return: a string with the result of the calculation
     """
+
     if len(args) > 1:
         h1, h2 = args[0], args[1]
         if h1 > h2:
             h2, h1 = h1, h2
 
-    if len(args) > 1:
         delta = relativedelta(years=h1.year, months=h1.month, days=h1.day)
         calculation_date = h2 - delta
 
