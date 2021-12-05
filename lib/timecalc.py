@@ -49,21 +49,21 @@ def calc_time(args: list[datetime]) -> str:
     :return: a string with the result of the calculation
     """
     if len(args) > 1:
-        h1, h2 = args[0], args[1]
-        if h1 < h2:
-            h2, h1 = h1, h2
+        argument_1, argument_2 = args[0], args[1]
+        if argument_1 < argument_2:
+            argument_2, argument_1 = argument_1, argument_2
 
-        delta = timedelta(hours=h2.hour, minutes=h2.minute, seconds=h2.second)
-        calculation_time = h1 - delta
+        delta = timedelta(hours=argument_2.hour, minutes=argument_2.minute, seconds=argument_2.second)
+        calculation_time = argument_1 - delta
         return calculation_time.strftime("%H:%M:%S")
 
-    elif len(args) == 1:
-        h1 = args[0]
+    if len(args) == 1:
+        argument_1 = args[0]
         now = datetime.now()
-        if h1 < now:
-            now, h1 = h1, now
+        if argument_1 < now:
+            now, argument_1 = argument_1, now
 
-        delta = timedelta(hours=h1.hour, minutes=h1.minute, seconds=h1.second)
+        delta = timedelta(hours=argument_1.hour, minutes=argument_1.minute, seconds=argument_1.second)
         calculation_time = now - delta
 
         return calculation_time.strftime("%H:%M:%S")
@@ -77,21 +77,21 @@ def calc_date(args: list[datetime]) -> str:
     """
 
     if len(args) > 1:
-        h1, h2 = args[0], args[1]
-        if h1 > h2:
-            h2, h1 = h1, h2
+        argument_1, argument_2 = args[0], args[1]
+        if argument_1 > argument_2:
+            argument_2, argument_1 = argument_1, argument_2
 
-        delta = relativedelta(years=h1.year, months=h1.month, days=h1.day)
-        calculation_date = h2 - delta
+        delta = relativedelta(years=argument_1.year, months=argument_1.month, days=argument_1.day)
+        calculation_date = argument_2 - delta
 
-        return calculation_date.strftime(f"%Y years %m months %d days")
+        return calculation_date.strftime("%Y years %m months %d days")
 
-    elif len(args) == 1:
-        h1 = args[0]
+    if len(args) == 1:
+        argument_1 = args[0]
         today = datetime.today()
-        if h1 > today:
-            today, h1 = h1, today
-        delta = relativedelta(years=h1.year, months=h1.month, days=h1.day)
+        if argument_1 > today:
+            today, argument_1 = argument_1, today
+        delta = relativedelta(years=argument_1.year, months=argument_1.month, days=argument_1.day)
         calculation_date = today - delta
 
         return calculation_date.strftime("%Y years %m months %d days")
