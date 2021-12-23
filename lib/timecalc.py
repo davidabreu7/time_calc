@@ -1,5 +1,5 @@
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
@@ -13,13 +13,9 @@ def parse_time(args: list[str]) -> list[datetime]:
 
     try:
         time_list = [datetime.strptime(arg, "%H:%M:%S") for arg in args]
-    except TypeError:
+    except (TypeError, ValueError):
         print("wrong time format -> hh:mm:ss")
         sys.exit(1)
-    except ValueError:
-        print("wrong time format -> hh:mm:ss")
-        sys.exit(1)
-
     return time_list
 
 
@@ -32,13 +28,9 @@ def parse_date(args: list[str]) -> list:
 
     try:
         date_list = [datetime.strptime(arg, "%d/%m/%Y") for arg in args]
-    except ValueError:
+    except (ValueError, TypeError):
         print("wrong date format -> dd/mm/yyyy")
         sys.exit(1)
-    except TypeError:
-        print("wrong date format -> dd/mm/yyyy")
-        sys.exit(1)
-
     return date_list
 
 
@@ -49,24 +41,17 @@ def calc_time(args: list[datetime]) -> str:
     :return: a string with the result of the calculation
     """
     if len(args) > 1:
-        argument_1, argument_2 = args[0], args[1]
-        if argument_1 < argument_2:
-            argument_2, argument_1 = argument_1, argument_2
+        time_1, time_2 = args[0], args[1]
+        rdelta = relativedelta(time_2, time_1)
 
-        delta = timedelta(hours=argument_2.hour, minutes=argument_2.minute, seconds=argument_2.second)
-        calculation_time = argument_1 - delta
-        return calculation_time.strftime("%H:%M:%S")
+        return f"{abs(rdelta.hours)}:{abs(rdelta.minutes)}:{abs(rdelta.seconds)}"
 
     if len(args) == 1:
-        argument_1 = args[0]
+        time_1 = args[0]
         now = datetime.now()
-        if argument_1 < now:
-            now, argument_1 = argument_1, now
+        rdelta = relativedelta(time_1, now)
 
-        delta = timedelta(hours=argument_1.hour, minutes=argument_1.minute, seconds=argument_1.second)
-        calculation_time = now - delta
-
-        return calculation_time.strftime("%H:%M:%S")
+        return f"{abs(rdelta.hours)}:{abs(rdelta.minutes)}:{abs(rdelta.seconds)}"
 
 
 def calc_date(args: list[datetime]) -> str:
@@ -78,23 +63,16 @@ def calc_date(args: list[datetime]) -> str:
 
     if len(args) > 1:
         argument_1, argument_2 = args[0], args[1]
-        if argument_1 > argument_2:
-            argument_2, argument_1 = argument_1, argument_2
+        rdelta = relativedelta(argument_2, argument_1)
 
-        delta = relativedelta(years=argument_1.year, months=argument_1.month, days=argument_1.day)
-        calculation_date = argument_2 - delta
-
-        return calculation_date.strftime("%Y years %m months %d days")
+        return f"{abs(rdelta.years)} years {abs(rdelta.months)} months {abs(rdelta.days)} days"
 
     if len(args) == 1:
         argument_1 = args[0]
         today = datetime.today()
-        if argument_1 > today:
-            today, argument_1 = argument_1, today
-        delta = relativedelta(years=argument_1.year, months=argument_1.month, days=argument_1.day)
-        calculation_date = today - delta
+        rdelta = relativedelta(argument_1, today)
 
-        return calculation_date.strftime("%Y years %m months %d days")
+        return f"{abs(rdelta.years)} years {abs(rdelta.months)} months {abs(rdelta.days)} days"
 
 
 def calc_weekday(week_day: datetime) -> str:

@@ -30,7 +30,7 @@ def main():
         print(calc_date(date_obj))
     elif args.time:
         time_obj = parse_time(args.time)
-        print(calc_time(time_obj).time())
+        print(calc_time(time_obj))
     elif args.day:
         week_day = parse_date(args.day)
         calc_weekday(week_day)
