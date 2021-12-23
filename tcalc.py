@@ -1,8 +1,11 @@
+"""
+Time and date calculator
+"""
 #!/home/dvlinux/PycharmProjects/time_calc/venv/bin/python
 
 import argparse
 
-from lib.timecalc import *
+from lib.timecalc import parse_date, parse_time, calc_time, calc_date, calc_weekday
 
 
 def main():
@@ -33,7 +36,7 @@ def main():
         print(calc_time(time_obj))
     elif args.day:
         week_day = parse_date(args.day)
-        calc_weekday(week_day)
+        print(calc_weekday(week_day[0]))
 
 
 if __name__ == "__main__":
