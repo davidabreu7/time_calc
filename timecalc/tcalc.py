@@ -15,13 +15,10 @@ def calc_time(args: list[datetime]) -> str:
     if len(args) > 1:
         time_1, time_2 = args[0], args[1]
         rdelta = relativedelta(time_2, time_1)
-
-        return f"{abs(rdelta.hours)}:{abs(rdelta.minutes)}:{abs(rdelta.seconds)}"
-
-    # if len(args) == 1:
-    time_1 = args[0]
-    now = datetime.now()
-    rdelta = relativedelta(time_1, now)
+    elif len(args) == 1:
+        time_1 = args[0]
+        now = datetime.now()
+        rdelta = relativedelta(time_1, now)
 
     return f"{abs(rdelta.hours)}:{abs(rdelta.minutes)}:{abs(rdelta.seconds)}"
 
@@ -36,13 +33,10 @@ def calc_date(args: list[datetime]) -> str:
     if len(args) > 1:
         argument_1, argument_2 = args[0], args[1]
         rdelta = relativedelta(argument_2, argument_1)
-
-        return f"{abs(rdelta.years)} years {abs(rdelta.months)} months {abs(rdelta.days)} days"
-
-    # if len(args) == 1:
-    argument_1 = args[0]
-    today = datetime.today()
-    rdelta = relativedelta(argument_1, today)
+    elif len(args) == 1:
+        argument_1 = args[0]
+        today = datetime.today()
+        rdelta = relativedelta(argument_1, today)
 
     return f"{abs(rdelta.years)} years {abs(rdelta.months)} months {abs(rdelta.days)} days"
 
